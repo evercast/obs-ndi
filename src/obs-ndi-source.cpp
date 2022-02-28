@@ -279,7 +279,7 @@ obs_properties_t* ndi_source_getproperties(void* data)
 void ndi_source_getdefaults(obs_data_t* settings)
 {
 	obs_data_set_default_int(settings, PROP_BANDWIDTH, PROP_BW_HIGHEST);
-	obs_data_set_default_int(settings, PROP_SYNC, PROP_SYNC_NDI_SOURCE_TIMECODE);
+	obs_data_set_default_int(settings, PROP_SYNC, PROP_SYNC_NDI_TIMESTAMP);
 	obs_data_set_default_int(settings, PROP_YUV_RANGE, PROP_YUV_RANGE_PARTIAL);
 	obs_data_set_default_int(settings, PROP_YUV_COLORSPACE, PROP_YUV_SPACE_BT709);
 	obs_data_set_default_int(settings, PROP_LATENCY, PROP_LATENCY_NORMAL);
@@ -311,17 +311,8 @@ void* ndi_source_poll_audio_video(void* data)
 			obs_audio_frame.speakers =
 				channel_count_to_layout(audio_frame.no_channels);
 
-			switch (s->sync_mode) {
-				case PROP_SYNC_NDI_TIMESTAMP:
-					obs_audio_frame.timestamp =
-						(uint64_t)(audio_frame.timestamp * 100.0);
-					break;
-
-				case PROP_SYNC_NDI_SOURCE_TIMECODE:
-					obs_audio_frame.timestamp =
-						(uint64_t)(audio_frame.timecode * 100.0);
-					break;
-			}
+			obs_audio_frame.timestamp =
+				(uint64_t)(audio_frame.timestamp * 100.0);
 
 			obs_audio_frame.samples_per_sec = audio_frame.sample_rate;
 			obs_audio_frame.format = AUDIO_FORMAT_FLOAT_PLANAR;
@@ -366,17 +357,8 @@ void* ndi_source_poll_audio_video(void* data)
 					break;
 			}
 
-			switch (s->sync_mode) {
-				case PROP_SYNC_NDI_TIMESTAMP:
-					obs_video_frame.timestamp =
-						(uint64_t)(video_frame.timestamp * 100);
-					break;
-
-				case PROP_SYNC_NDI_SOURCE_TIMECODE:
-					obs_video_frame.timestamp =
-						(uint64_t)(video_frame.timecode * 100);
-					break;
-			}
+			obs_video_frame.timestamp =
+				(uint64_t)(video_frame.timestamp * 100);
 
 			obs_video_frame.width = video_frame.xres;
 			obs_video_frame.height = video_frame.yres;
@@ -458,11 +440,12 @@ void ndi_source_update(void* data, obs_data_t* settings)
 	}
 
 	s->sync_mode = (int)obs_data_get_int(settings, PROP_SYNC);
-	// if sync mode is set to the unsupported "Internal" mode, set it
-	// to "Source Timing" mode and apply that change to the settings data
+	// if sync mode is set to the unsupported "Internal" mode, or 
+	// "Source Timing" mode, set it to "Network" mode and apply that
+	// change to the settings data
 	if (s->sync_mode == PROP_SYNC_INTERNAL) {
 		s->sync_mode == PROP_SYNC_NDI_SOURCE_TIMECODE;
-		obs_data_set_int(settings, PROP_SYNC, PROP_SYNC_NDI_SOURCE_TIMECODE);
+		obs_data_set_int(settings, PROP_SYNC, PROP_SYNC_NDI_TIMESTAMP);
 	}
 
 	s->yuv_range =
