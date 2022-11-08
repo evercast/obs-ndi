@@ -10,7 +10,11 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if (WIN32 OR APPLE)
+	message("Looking for libobs...")
     include(external/FindLibObs.cmake)
+	message("Done looking for libobs.")
+else()
+	message("Not looking for libobs.")
 endif()
 
 find_package(LibObs REQUIRED)

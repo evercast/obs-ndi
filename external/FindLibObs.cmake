@@ -36,6 +36,8 @@ find_path(LIBOBS_INCLUDE_DIR
 	PATH_SUFFIXES
 		libobs
 	)
+message("LIBOBS_INCLUDE_DIR:")
+message(${LIBOBS_INCLUDE_DIR})
 
 function(find_obs_lib base_name repo_build_path lib_name)
 	string(TOUPPER "${base_name}" base_name_u)
@@ -77,6 +79,7 @@ endfunction()
 find_obs_lib(LIBOBS libobs obs)
 
 if(MSVC)
+	message("Searching for PThreads lib...")
 	find_obs_lib(W32_PTHREADS deps/w32-pthreads w32-pthreads)
 endif()
 
@@ -85,6 +88,7 @@ find_package_handle_standard_args(Libobs DEFAULT_MSG LIBOBS_LIB LIBOBS_INCLUDE_D
 mark_as_advanced(LIBOBS_INCLUDE_DIR LIBOBS_LIB)
 
 if(LIBOBS_FOUND)
+	message("LIBOBS found.")
 	if(MSVC)
 		if (NOT DEFINED W32_PTHREADS_LIB)
 			message(FATAL_ERROR "Could not find the w32-pthreads library" )
