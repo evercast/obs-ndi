@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 project(obs-ndi VERSION 4.9.0)
 
-list(APPEND CMAKE_PREFIX_PATH "${QTDIR}")
+set(CMAKE_PREFIX_PATH "${QTDIR}")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
