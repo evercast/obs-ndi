@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.5)
 project(obs-ndi VERSION 4.9.0)
 
-set(CMAKE_PREFIX_PATH "${QTDIR}")
-list(APPEND CMAKE_PREFIX_PATH, "${LIBOBS_DIR}")
+list(APPEND CMAKE_PREFIX_PATH "${QTDIR}")
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTOUIC ON)
@@ -18,7 +17,8 @@ else()
 	message("Not looking for libobs.")
 endif()
 
-message(${CMAKE_PREFIX_PATH})
+message("prefix path: ${CMAKE_PREFIX_PATH}")
+message("module path: ${CMAKE_MODULE_PATH}")
 find_package(LibObs REQUIRED)
 find_package(Qt5 REQUIRED Core Widgets)
 

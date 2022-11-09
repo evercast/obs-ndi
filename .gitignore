@@ -2,8 +2,10 @@
 /build32/
 /build64/
 /release/
+/out/
 /installer/Output/
 .DS_Store
 .idea
 .vscode
 **/cmake-build-debug/
+.vs
