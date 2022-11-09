@@ -18,6 +18,7 @@ else()
 	message("Not looking for libobs.")
 endif()
 
+message(${CMAKE_PREFIX_PATH})
 find_package(LibObs REQUIRED)
 find_package(Qt5 REQUIRED Core Widgets)
 
