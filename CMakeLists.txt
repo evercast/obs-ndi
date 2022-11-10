@@ -17,7 +17,7 @@ endif()
 
 message("prefix path: ${CMAKE_PREFIX_PATH}")
 message("module path: ${CMAKE_MODULE_PATH}")
-find_package(LibObs REQUIRED)
+find_package(libobs REQUIRED)
 find_package(Qt5 REQUIRED Core Widgets)
 
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
