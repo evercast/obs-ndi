@@ -9,12 +9,10 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+cmake_policy(SET CMP0074 NEW)
+
 if (WIN32 OR APPLE)
-	message("Looking for libobs...")
     include(external/FindLibObs.cmake)
-	message("Done looking for libobs.")
-else()
-	message("Not looking for libobs.")
 endif()
 
 message("prefix path: ${CMAKE_PREFIX_PATH}")
