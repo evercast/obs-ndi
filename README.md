@@ -1,6 +1,8 @@
 obs-ndi
 ==============
 
+## Data Classification: Public
+
 Network A/V in OBS Studio with NewTek's NDI technology.
 
 Follow the main author on Twitter for news & updates : [@LePalakis](https://twitter.com/LePalakis)
